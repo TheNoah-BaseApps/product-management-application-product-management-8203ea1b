@@ -1,0 +1,479 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Application API Documentation",
+    "version": "1.0.0",
+    "description": "API documentation for the generated application",
+    "contact": {
+      "name": "API Support"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://your-production-url.com",
+      "description": "Production server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "security": [],
+  "paths": {
+    "/api/activity-logs": {
+      "get": {
+        "summary": "Get activity logs",
+        "tags": [
+          "Activity"
+        ]
+      }
+    },
+    "/api/analytics/dashboard": {
+      "get": {
+        "summary": "Get dashboard metrics",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/api/analytics/workflow-stats": {
+      "get": {
+        "summary": "Get workflow statistics",
+        "tags": [
+          "Analytics"
+        ]
+      }
+    },
+    "/api/attachments/{id}": {
+      "delete": {
+        "summary": "Delete an attachment",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments": {
+      "get": {
+        "summary": "Get attachments for an entity",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/upload": {
+      "post": {
+        "summary": "Upload an attachment",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "Authenticate user",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "summary": "Get current user profile",
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile retrieved"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/comments": {
+      "get": {
+        "summary": "Get comments for an entity",
+        "tags": [
+          "Comments"
+        ]
+      },
+      "post": {
+        "summary": "Add a comment",
+        "tags": [
+          "Comments"
+        ]
+      }
+    },
+    "/api/example": {
+      "get": {
+        "summary": "Example GET endpoint",
+        "description": "Returns a sample response to demonstrate API structure",
+        "tags": [
+          "Examples"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Hello from the API"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "success"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Example POST endpoint",
+        "description": "Accepts data and returns a confirmation",
+        "tags": [
+          "Examples"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "john@example.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "receivedData": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/api/export/requirements": {
+      "post": {
+        "summary": "Export requirements as CSV",
+        "tags": [
+          "Export"
+        ]
+      }
+    },
+    "/api/export/roadmap": {
+      "post": {
+        "summary": "Export roadmap as PDF",
+        "tags": [
+          "Export"
+        ]
+      }
+    },
+    "/api/ideas/{id}/promote": {
+      "post": {
+        "summary": "Promote an idea to a requirement",
+        "tags": [
+          "Ideas"
+        ]
+      }
+    },
+    "/api/ideas/{id}": {
+      "get": {
+        "summary": "Get idea by ID",
+        "tags": [
+          "Ideas"
+        ]
+      },
+      "put": {
+        "summary": "Update idea",
+        "tags": [
+          "Ideas"
+        ]
+      },
+      "delete": {
+        "summary": "Delete idea",
+        "tags": [
+          "Ideas"
+        ]
+      }
+    },
+    "/api/ideas/{id}/triage": {
+      "post": {
+        "summary": "Triage an idea",
+        "tags": [
+          "Ideas"
+        ]
+      }
+    },
+    "/api/ideas": {
+      "get": {
+        "summary": "Get all ideas",
+        "tags": [
+          "Ideas"
+        ]
+      },
+      "post": {
+        "summary": "Submit a new idea",
+        "tags": [
+          "Ideas"
+        ]
+      }
+    },
+    "/api/notifications/{id}/read": {
+      "put": {
+        "summary": "Mark notification as read",
+        "tags": [
+          "Notifications"
+        ]
+      }
+    },
+    "/api/notifications": {
+      "get": {
+        "summary": "Get user notifications",
+        "tags": [
+          "Notifications"
+        ]
+      }
+    },
+    "/api/requirements/{id}": {
+      "get": {
+        "summary": "Get requirement by ID",
+        "tags": [
+          "Requirements"
+        ]
+      },
+      "put": {
+        "summary": "Update requirement",
+        "tags": [
+          "Requirements"
+        ]
+      },
+      "delete": {
+        "summary": "Delete requirement",
+        "tags": [
+          "Requirements"
+        ]
+      }
+    },
+    "/api/requirements/{id}/validate": {
+      "post": {
+        "summary": "Validate a requirement",
+        "tags": [
+          "Requirements"
+        ]
+      }
+    },
+    "/api/requirements": {
+      "get": {
+        "summary": "Get all requirements",
+        "tags": [
+          "Requirements"
+        ]
+      },
+      "post": {
+        "summary": "Create a new requirement",
+        "tags": [
+          "Requirements"
+        ]
+      }
+    },
+    "/api/roadmaps/{id}/approve": {
+      "post": {
+        "summary": "Approve a roadmap",
+        "tags": [
+          "Roadmaps"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/roadmaps/{id}": {
+      "get": {
+        "summary": "Get roadmap by ID",
+        "tags": [
+          "Roadmaps"
+        ]
+      },
+      "put": {
+        "summary": "Update roadmap",
+        "tags": [
+          "Roadmaps"
+        ]
+      },
+      "delete": {
+        "summary": "Delete roadmap",
+        "tags": [
+          "Roadmaps"
+        ]
+      }
+    },
+    "/api/roadmaps": {
+      "get": {
+        "summary": "Get all roadmaps with filters",
+        "tags": [
+          "Roadmaps"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a new roadmap",
+        "tags": [
+          "Roadmaps"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}
